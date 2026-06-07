@@ -48,7 +48,7 @@ jobs:
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
 
-  test-container:
+test-container:
     name: Test our container
     needs: build-and-push-image
     runs-on: ubuntu-latest
@@ -58,7 +58,7 @@ jobs:
 
       - name: Test
         run: |
-          docker container run --detach --publish 5000:5000 ghcr.io/${{ github.repository_owner }}/devops-sre-course-labs-step-by-step:latest
+          docker container run --detach --publish 8080:8080 ghcr.io/${{ github.repository_owner }}/devops-sre-course-labs-step-by-step:latest
           sleep 15
           docker ps
-          curl --retry 10 --retry-delay 2 http://localhost:5000
+          curl --retry 10 --retry-delay 2 http://localhost:8080
